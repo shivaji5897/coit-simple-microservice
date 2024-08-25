@@ -22,9 +22,9 @@ pipeline {
         }    
         stage('stop-container') {
             steps {
-               script{
-                   CONTAINER_ID=docker ps | grep 'java' | awk '{print $1}'
-               }
+               script {
+                        CONTAINER_ID=docker ps | grep java | awk '{print $1}'
+                      }
                sh 'docker stop $CONTAINER_ID'
                sh 'docker ps -a'
                sh 'docker rm $CONTAINER_ID'
