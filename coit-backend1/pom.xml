@@ -47,12 +47,12 @@
 		<repository>
 			<id>coit-backend1</id>
 			<name>coit-backend1</name>
-			<url>http://35.154.161.166:8081/repository/coit-backend1/</url>
+			<url>http://3.110.213.48:8081/repository/coit-backend1/</url>
 		</repository>
 		<snapshotRepository>
 			<id>coit-backend1-SNAPSHOT</id>
 			<name>coit-backend1-SNAPSHOT</name>
-			<url>http://35.154.161.166:8081/repository/coit-backend1-SNAPSHOT/</url>
+			<url>http://3.110.213.48:8081/repository/coit-backend1-SNAPSHOT/</url>
 		</snapshotRepository>
 	</distributionManagement>
 
