@@ -23,25 +23,33 @@ pipeline {
         stage('stop-container') {
             steps {
                script {
-                        CONTAINER_ID=docker ps | grep java | awk '{print $1}'
+                        CONTAINER_ID=docker ps | grep "sentiment" | awk '{print $1}'
                       }
-               sh 'docker stop $CONTAINER_ID'
-               sh 'docker ps -a'
-               sh 'docker rm $CONTAINER_ID'
-            }
+                  }
         }    
         stage('remove-image') {
             steps {
+               sh 'docker stop $CONTAINER_ID'
+               sh 'docker ps -a'
+               sh 'docker rm $CONTAINER_ID'
                sh 'docker images'
                sh 'docker tag coit-backend1:v5 shivaji5897/coit-backend111:v5'
                sh 'docker push shivaji5897/coit-backend111:v5'
                sh 'docker rmi shivaji5897/coit-backend111:v5'
-               script{
-                   IMAGE_ID=docker images -a | grep "coit" | awk '{print $3}'
-               }
                //sh 'IMAGE_ID=`docker images -a | grep "coit" | awk '{print $3}'`'
-               sh 'docker rmi $IMAGE_ID'
             }                 
+        }
+        stage('stop-container') {
+            steps {
+               script{
+                       IMAGE_ID=docker images -a | grep "coit" | awk '{print $3}'
+                     }
+                  }
+        }
+        stage('remove-image'){
+            steps {
+                sh 'docker rmi $IMAGE_ID'
+            }
         }
     }
 }
