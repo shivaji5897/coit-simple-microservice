@@ -23,7 +23,7 @@ pipeline {
         stage('container-id') {
             steps {
                withEnv(['container_id=docker ps | grep "java" | awk \'{print $1}\'']) {
-    // some block
+               echo "container_id: ${container_id}"
 }
         }  
         }
@@ -42,7 +42,7 @@ pipeline {
         stage('image-id') {
             steps {
               withEnv(['image_id=docker images -a | grep "coit" | awk \'{print $3}\'']) {
-    // some block
+              echo "image_id: ${image_id}"
 }
                   }
         }
