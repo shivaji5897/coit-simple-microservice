@@ -4,19 +4,39 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-               sh 'cd coit-backend1 && mvn install'
+               sh 'cd coit-backend1 && mvn deploy'
             }
         }
         stage('docker-build') {
             steps {
-               sh 'cd coit-backend1 && docker build -t coit-backend1-12344321 .'
+               sh 'cd coit-backend1 && docker build -t coit-backend1-v5 .'
+               sh 'docker images'
             }
-        }
-        stage('docker-push') {
+        }    
+        stage('run-container') {
             steps {
-               sh 'echo "push"'
-                // docker push amol1996/coit-backend1-12344321
+               sh 'docker run -d -p 9999:8080 coit-backend1-v5'
+               sh 'sleep 20'
             }
+        }    
+        stage('stop-container') {
+            steps {
+               sh 'docker ps'
+               sh 'CONTAINER_ID=`docker ps | grep "java" | awk '{print $1}'`'
+               sh 'docker stop $CONTAINER_ID'
+               sh 'docker ps -a'
+               sh 'docker rm $CONTAINER_ID'
+            }
+        }    
+        stage('remove-image') {
+            steps {
+               sh 'docker images'
+               sh 'docker tag coit-backend1:v5 shivaji5897/coit-backend111:v5'
+               sh 'docker push shivaji5897/coit-backend111:v5'
+               sh 'docker rmi shivaji5897/coit-backend111:v5'
+               sh 'IMAGE_ID=`docker images -a | grep "coit" | awk '{print $3}'`'
+               sh 'docker rmi $IMAGE_ID'
+            }                 
+        }
     }
-}
 }
