@@ -20,14 +20,14 @@ pipeline {
                sh 'docker ps'
             }
         }    
-        stage('stop-container') {
+        stage('container-id') {
             steps {
                withEnv(['container_id=docker ps | grep "java" | awk \'{print $1}\'']) {
     // some block
 }
         }  
         }
-        stage('remove-image') {
+        stage('remove-container') {
             steps {
                sh 'docker stop $container_id'
                sh 'docker ps -a'
@@ -39,16 +39,16 @@ pipeline {
                //sh 'IMAGE_ID=`docker images -a | grep "coit" | awk '{print $3}'`'
             }                 
         }
-        stage('stop-container') {
+        stage('image-id') {
             steps {
-              withEnv(['IMAGE_ID=docker images -a | grep "coit" | awk \'{print $3}\'']) {
+              withEnv(['image_id=docker images -a | grep "coit" | awk \'{print $3}\'']) {
     // some block
 }
                   }
         }
         stage('remove-image'){
             steps {
-                sh 'docker rmi $IMAGE_ID'
+                sh 'docker rmi $image_id'
             }
         }
     }
