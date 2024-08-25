@@ -22,15 +22,16 @@ pipeline {
         }    
         stage('stop-container') {
             steps {
-               script {
-                       def CONTAINER_ID = sh(returnStdout: true, script: 'docker ps | grep "coit" | awk '{print $1}')'
-                  }
-        }    
+               withEnv(['container_id=docker ps | grep "java" | awk \'{print $1}\'']) {
+    // some block
+}
+        }  
+        }
         stage('remove-image') {
             steps {
-               sh 'docker stop $CONTAINER_ID'
+               sh 'docker stop $container_id'
                sh 'docker ps -a'
-               sh 'docker rm $CONTAINER_ID'
+               sh 'docker rm $container_id'
                sh 'docker images'
                sh 'docker tag coit-backend1:v5 shivaji5897/coit-backend111:v5'
                sh 'docker push shivaji5897/coit-backend111:v5'
