@@ -23,8 +23,7 @@ pipeline {
         stage('stop-container') {
             steps {
                script {
-                        CONTAINER_ID=docker ps | grep "sentiment" | awk '{print $1}'
-                      }
+                        CONTAINER_ID=docker ps | grep "coit" | awk '{print $1}'}
                   }
         }    
         stage('remove-image') {
