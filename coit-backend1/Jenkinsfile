@@ -26,7 +26,7 @@ pipeline {
                sh 'docker container ls -a -fname=java -q | xargs -r docker container rm'
 }
         }  
-        }
+        
         stage('remove-container') {
             steps {
                //sh 'docker stop $container_id'
@@ -44,7 +44,7 @@ pipeline {
               //withEnv(['image_id=docker images -a | grep "coit" | awk \'{print $3}\'']) {
               //echo "image_id: ${image_id}"
                 sh 'docker images'
-}
+
                   }
         }
         stage('remove-image'){
