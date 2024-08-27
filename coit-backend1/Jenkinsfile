@@ -9,8 +9,10 @@ pipeline {
         }
         stage('docker-build') {
             steps {
-               sh 'cd coit-backend1 && docker build -t coit-backend1-v5 .'
-               sh 'docker images'
+                script {
+                   sh 'cd coit-backend1 && docker build -t coit-backend1-v5 .'
+                   sh 'docker images'
+                }
             }
         }    
         stage('run-container') {
