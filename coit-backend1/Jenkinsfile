@@ -9,10 +9,8 @@ pipeline {
         }
         stage('docker-build') {
             steps {
-                script {
                    sh 'cd coit-backend1 && docker build -t coit-backend1-v5 .'
                    sh 'docker images'
-                }
             }
         }    
         stage('run-container') {
@@ -24,8 +22,10 @@ pipeline {
         }    
         stage('container-id') {
             steps {
-               sh "docker stop (docker ps -a | grep "java" | cut -d ' ' -f1)"
-               sh "docker rm (docker ps -a | grep "java" | cut -d ' ' -f1)"
+                script {
+                   sh 'docker stop (docker ps -a | grep "java" | cut -d ' ' -f1)'
+                   sh 'docker rm (docker ps -a | grep "java" | cut -d ' ' -f1)'
+                }
 }
         }  
         
