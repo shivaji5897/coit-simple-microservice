@@ -22,33 +22,35 @@ pipeline {
         }    
         stage('container-id') {
             steps {
-               withEnv(['container_id=docker ps | grep "java" | awk \'{print $1}\'']) {
-               echo "container_id: ${container_id}"
+               sh 'docker ps -f name=java -q | xargs --no-run-if-empty docker container stop'
+               sh 'docker container ls -a -fname=java -q | xargs -r docker container rm'
 }
         }  
         }
         stage('remove-container') {
             steps {
-               sh 'docker stop $container_id'
+               //sh 'docker stop $container_id'
                sh 'docker ps -a'
-               sh 'docker rm $container_id'
-               sh 'docker images'
-               sh 'docker tag coit-backend1:v5 shivaji5897/coit-backend111:v5'
-               sh 'docker push shivaji5897/coit-backend111:v5'
-               sh 'docker rmi shivaji5897/coit-backend111:v5'
+               //sh 'docker rm $container_id'
+               //sh 'docker images'
+               //sh 'docker tag coit-backend1:v5 shivaji5897/coit-backend111:v5'
+               //sh 'docker push shivaji5897/coit-backend111:v5'
+               //sh 'docker rmi shivaji5897/coit-backend111:v5'
                //sh 'IMAGE_ID=`docker images -a | grep "coit" | awk '{print $3}'`'
             }                 
         }
         stage('image-id') {
             steps {
-              withEnv(['image_id=docker images -a | grep "coit" | awk \'{print $3}\'']) {
-              echo "image_id: ${image_id}"
+              //withEnv(['image_id=docker images -a | grep "coit" | awk \'{print $3}\'']) {
+              //echo "image_id: ${image_id}"
+                sh 'docker images'
 }
                   }
         }
         stage('remove-image'){
             steps {
-                sh 'docker rmi $image_id'
+                //sh 'docker rmi $image_id'
+                sh 'docker images'
             }
         }
     }
