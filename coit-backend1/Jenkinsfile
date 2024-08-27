@@ -15,7 +15,7 @@ pipeline {
         }    
         stage('run-container') {
             steps {
-               sh 'docker run -d -p 9999:8080 coit-backend1-v5'
+               sh 'docker run -d -p 1234:8080 coit-backend1-v5'
                sh 'sleep 20'
                sh 'docker ps'
             }
