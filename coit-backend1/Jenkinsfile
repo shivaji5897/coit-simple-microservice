@@ -22,15 +22,15 @@ pipeline {
         }    
         stage('container-id') {
             steps {
-               sh 'docker ps -f name=java -q | xargs --no-run-if-empty docker container stop'
-               sh 'docker container ls -a -f  name=java -q | xargs -r docker container rm'
+               sh 'docker stop $(docker ps -a | grep "/hello" | cut -d ' ' -f1)'
+               sh 'docker rm $(docker ps -a | grep "/hello" | cut -d ' ' -f1)'
 }
         }  
         
         stage('remove-container') {
             steps {
                //sh 'docker stop $container_id'
-               sh 'docker ps'
+               sh 'docker ps -a'
                //sh 'docker rm $container_id'
                //sh 'docker images'
                //sh 'docker tag coit-backend1:v5 shivaji5897/coit-backend111:v5'
