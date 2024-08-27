@@ -23,7 +23,7 @@ pipeline {
         stage('container-id') {
             steps {
                sh 'docker ps -f name=java -q | xargs --no-run-if-empty docker container stop'
-               sh 'docker container ls -a -fname=java -q | xargs -r docker container rm'
+               sh 'docker container ls -a -f  name=java -q | xargs -r docker container rm'
 }
         }  
         
